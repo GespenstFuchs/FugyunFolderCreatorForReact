@@ -1,0 +1,10 @@
+{
+"SpaProxyServer": {
+"ServerUrl": "https://localhost:65312",
+"RedirectUrl": "",
+"LaunchCommand": "npm run dev",
+"WorkingDirectory": "C:\\Users\\fugyu\\source\\repos\\FugyunFolderCreatorForReact\\FugyunFolderCreatorForReact.Server\\..\\fugyunfoldercreatorforreact.client",
+"MaxTimeoutInSeconds": "120",
+"KeepRunning": "false"
+}
+}

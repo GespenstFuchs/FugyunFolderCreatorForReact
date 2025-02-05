@@ -1,0 +1,6 @@
+@FugyunFolderCreatorForReact.Server_HostAddress = http://localhost:5291
+
+GET {{FugyunFolderCreatorForReact.Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

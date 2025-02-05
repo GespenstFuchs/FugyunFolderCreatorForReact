@@ -1,0 +1,1 @@
+C:\Users\fugyu\source\repos\FugyunFolderCreatorForReact\fugyunfoldercreatorforreact.client\obj\Debug\fugyunfoldercreatorforreact.client.esproj.CoreCompileInputs.cache

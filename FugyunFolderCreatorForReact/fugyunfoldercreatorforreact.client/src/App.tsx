@@ -32,14 +32,18 @@ function App() {
     // APIURLを取得・保持する。
     const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
 
-    // 初期表示処理
+    /**
+     * 初期表示処理
+     */
     useEffect(() => {
         // textareaにフォーカス設定する。
         // （但し、ブラウザの仕様で設定可能なブラウザ・設定不可のブラウザがある（エラーにはならない）。）
         textAreaRef.current?.focus();
     }, []);
 
-    // フォルダ作成処理
+    /**
+     * フォルダ作成処理
+     */
     const handleCreateFolder = async () => {
         // ローディングを表示する。
         setIsLoading(true);
@@ -69,7 +73,9 @@ function App() {
         }
     };
 
-    // フォルダ削除処理
+    /**
+     * フォルダ削除処理
+     */
     const handleDeleteFolder = async () => {
         // ローディングを表示する。
         setIsLoading(true);
@@ -99,17 +105,25 @@ function App() {
         }
     };
 
-    // 入力したパスをクリア処理
+    /**
+     * 入力したパスをクリア処理
+     */
     const handleClear = () => setPathText("");
 
-    // 確認ダイアログ表示処理
+    /**
+     * 確認ダイアログ表示処理
+     * @param message メッセージ
+     * @param callback コールバック
+     */
     const showConfirmDialog = (message: string, callback: () => void) => {
         setDialogMessage(message);
         setDialogCallback(() => callback);
         setDialogOpen(true);
     }
 
-    // 確認ダイアログ・はいボタン押下処理
+    /**
+     * 確認ダイアログ・はいボタン押下処理
+     */
     const handleConfirmDialogYes = () => {
         // 設定されたコールバックを実行する。
         if (dialogCallback) {
@@ -118,38 +132,51 @@ function App() {
         setDialogOpen(false);
     };
 
-    // 確認ダイアログ・いいえボタン押下処理
+    /**
+     * 確認ダイアログ・いいえボタン押下処理
+     */
     const handleConfirmDialogNo = () => {
         setDialogOpen(false);
     };
 
-    // メッセージボックス表示処理
+    /**
+     * メッセージボックス表示処理
+     * @param message メッセージ
+     * @param messageDialogIcon メッセージダイアログアイコン
+     */
     const showMessageDialog = (message: string, messageDialogIcon: string) => {
         setMessageDialogMessage(message);
         setMessageDialogIcon(messageDialogIcon);
         setMessageDialogOpen(true);
     };
 
-    // メッセージボックス・ＯＫボタン押下処理
+    /**
+     * メッセージボックス・ＯＫボタン押下処理
+     */
     const handleMessageDialogClose = () => {
         setMessageDialogOpen(false);
     };
 
-    // フォルダ作成ボタン押下処理
+    /**
+     * フォルダ作成ボタン押下処理
+     */
     const onFolderCreateClick = () => {
         showConfirmDialog("入力されたパスでフォルダを作成してよろしいですか？", handleCreateFolder);
     };
 
-    // フォルダ削除ボタン押下処理
-    const onFolderDeleteClick = () => {
-        allDeleteFlg.current = false;
-        showConfirmDialog(`入力されたパスのフォルダを削除してよろしいですか？\n（フォルダ内にファイルが存在する場合、ファイルごと削除します。）`, handleDeleteFolder);
-    };
-
-    // フォルダ全削除ボタン押下処理
-    const onFolderAllDeleteClick = () => {
-        allDeleteFlg.current = true;
-        showConfirmDialog(`入力されたパスの全フォルダを削除してよろしいですか？\n（フォルダ内にファイルが存在する場合、ファイルごと削除します。）`, handleDeleteFolder);
+    /**
+     * フォルダ削除ボタン押下処理
+     * @param event イベント
+     */
+    const onFolderDeleteClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        if (event.currentTarget.id == "FolderAllDeleteButton") {
+            allDeleteFlg.current = true;
+            showConfirmDialog(`入力されたパスの全フォルダを削除してよろしいですか？\n（フォルダ内にファイルが存在する場合、ファイルごと削除します。）`, handleDeleteFolder);
+        }
+        else {
+            allDeleteFlg.current = false;
+            showConfirmDialog(`入力されたパスのフォルダを削除してよろしいですか？\n（フォルダ内にファイルが存在する場合、ファイルごと削除します。）`, handleDeleteFolder);
+        }
     };
 
     return (
@@ -166,7 +193,7 @@ function App() {
             <div style={{ margin: '20px 0', display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
                 <button id="FolderCreateButton" className="buttonStyle" onClick={onFolderCreateClick}>フォルダ作成</button>
                 <button id="FolderDeleteButton" className="buttonStyle" onClick={onFolderDeleteClick}>フォルダ削除</button>
-                <button id="FolderAllDeleteButton" className="buttonStyle" onClick={onFolderAllDeleteClick}>フォルダ全削除</button>
+                <button id="FolderAllDeleteButton" className="buttonStyle" onClick={onFolderDeleteClick}>フォルダ全削除</button>
                 <button id="PathClearButton" className="buttonStyle" onClick={handleClear}>入力したパスをクリア</button>
             </div>
 
